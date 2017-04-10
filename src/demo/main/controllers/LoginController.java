@@ -3,6 +3,7 @@ package demo.main.controllers;
 import demo.main.views.AdminView;
 import demo.main.views.EmployeeView;
 import demo.main.views.LoginView;
+import org.xml.sax.SAXException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +27,10 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             //check user for credentials
-            if(false){                                  // trebuie schimbat cu admin
-                new AdminController(new AdminView());
+            if(true){                                  // trebuie schimbat cu admin
+                    new AdminController(new AdminView());
             }
-            else if(true){                              // trebuie schimbat cu user
+            else if(false){                              // trebuie schimbat cu user
                 new EmployeeController(new EmployeeView());
             }
             else{
