@@ -97,7 +97,7 @@ public class AdminView {
 
 
     /**
-     * The ClerkView constructor
+     * AdminView constructor for the View
      * @throws HeadlessException
      */
     public AdminView() throws HeadlessException {
@@ -114,7 +114,7 @@ public class AdminView {
 
         tabbedPane.add("Users", userSplitPanel);
         tabbedPane.add("Books", bookSplitPanel);
-        tabbedPane.add("Reports",reportPanel);
+        tabbedPane.add("Reports", reportPanel);
 
         frame.add(tabbedPane);
         frame.setVisible(true);
@@ -157,9 +157,7 @@ public class AdminView {
     public String getBookTitleInput() {
         return bookTitleInput.getText();
     }
-    public void setBookTitleInput(String accountIdentificationNumber) {
-        bookTitleInput.setText(accountIdentificationNumber);
-    }
+    public void setBookTitleInput(String accountIdentificationNumber) {bookTitleInput.setText(accountIdentificationNumber);}
     public String getBookAuthorInput() {
         return bookAuthorInput.getText();
     }
@@ -178,6 +176,7 @@ public class AdminView {
     public void setBookQuantityInput(String accountDate) {
         bookQuantityInput.setText(accountDate);
     }
+
 
     /**
      * Listeners
@@ -232,7 +231,6 @@ public class AdminView {
         bookTableModel.fireTableDataChanged();
     }
 
-
     public void updateUserTableFields(String[] userArray){
         bookIdInput.setText(userArray[0]);
         bookTitleInput.setText(userArray[1]);
@@ -262,9 +260,9 @@ public class AdminView {
         return row > -1 ? bookTable.getValueAt(row,0).toString() : null;
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////// private zone ////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+////////////////////////////// private zone /////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 
     /**

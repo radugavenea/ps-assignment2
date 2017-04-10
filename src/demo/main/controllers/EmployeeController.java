@@ -2,8 +2,6 @@ package demo.main.controllers;
 
 import demo.main.views.EmployeeView;
 
-import java.awt.event.WindowListener;
-
 /**
  * Created by radu on 10.04.2017.
  */
