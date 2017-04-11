@@ -8,6 +8,7 @@ import demo.main.views.AdminView;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -35,16 +36,59 @@ public class AdminController extends AbstractController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("Read users")){
-                try {
-                    userService.getAllUsers();
-                } catch (ParserConfigurationException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (SAXException e1) {
-                    e1.printStackTrace();
-                }
+            switch (e.getActionCommand()){
+                case "Read":
+                    try {
+                        userService.getAllUsers();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (SAXException e1) {
+                        e1.printStackTrace();
+                    } catch (ParserConfigurationException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "Add":
+                    try {
+                        userService.addUser(new User(23,"admin","admin","admin","nume"));
+                    } catch (ParserConfigurationException e1) {
+                        e1.printStackTrace();
+                    } catch (TransformerException e1) {
+                        e1.printStackTrace();
+                    } catch (SAXException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "Edit":
+                    try {
+                        userService.editUser(new User(23,"user","user","user","user nume"));
+                    } catch (ParserConfigurationException e1) {
+                        e1.printStackTrace();
+                    } catch (TransformerException e1) {
+                        e1.printStackTrace();
+                    } catch (SAXException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "Delete":
+                    try {
+                        userService.deleteUserById(23);
+                    } catch (SAXException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (ParserConfigurationException e1) {
+                        e1.printStackTrace();
+                    } catch (TransformerException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

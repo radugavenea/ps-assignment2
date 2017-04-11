@@ -184,7 +184,7 @@ public class AdminView {
     public void addAdminWindowListener(WindowListener adminWindowListener){
         frame.addWindowListener(adminWindowListener);
     }
-
+/*
     public void addUserListener(ActionListener listener){
         userReadButton.addActionListener(listener);
         userReadButton.setActionCommand("Read users");
@@ -205,7 +205,16 @@ public class AdminView {
         bookEditButton.setActionCommand("Edit book");
         bookDeleteButton.addActionListener(listener);
         bookDeleteButton.setActionCommand("Delete book");
+    }*/
+
+    public void addUserListener(ActionListener listener){
+        addXListener(listener, userReadButton, userAddButton, userEditButton, userDeleteButton);
     }
+    public void addBookListener(ActionListener listener){
+        addXListener(listener, bookReadButton, bookAddButton, bookEditButton, bookDeleteButton);
+    }
+
+
 
     public void addUserTableListener(ListSelectionListener listSelectionListener){
         userTable.getSelectionModel().addListSelectionListener(listSelectionListener);
@@ -318,6 +327,21 @@ public class AdminView {
 
     private void setUpReportPanel(){
 
+    }
+
+
+    /**
+     * Private listener for buttons ActionListeners
+     */
+    private void addXListener(ActionListener listener, JButton xReadButton, JButton xAddButton, JButton xEditButton, JButton xDeleteButton){
+        xReadButton.addActionListener(listener);
+        xReadButton.setActionCommand("Read");
+        xAddButton.addActionListener(listener);
+        xAddButton.setActionCommand("Add");
+        xEditButton.addActionListener(listener);
+        xEditButton.setActionCommand("Edit");
+        xDeleteButton.addActionListener(listener);
+        xDeleteButton.setActionCommand("Delete");
     }
 
 
