@@ -1,1 +1,73 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><books/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<books>
+	<book id="1">
+		<title>Femei</title>
+		<author>Charles Bukowski</author>
+		<genre>fiction</genre>
+		<quantity>12</quantity>
+		<price>23.5</price>
+	</book>
+	<book id="2">
+		<title>Imaparatul mustelor</title>
+		<author>William Golding</author>
+		<genre>fiction</genre>
+		<quantity>234</quantity>
+		<price>29.95</price>
+	</book>
+	<book id="3">
+		<title>How to get filthy rich in rising asia</title>
+		<author>Mohsin Hamid</author>
+		<genre>fiction</genre>
+		<quantity>96</quantity>
+		<price>42.25</price>
+	</book>
+	<book id="4">
+		<title>Intermitentele mortii</title>
+		<author>Jose Saramago</author>
+		<genre>fiction</genre>
+		<quantity>24</quantity>
+		<price>19</price>
+	</book>
+	<book id="5">
+		<title>Dragoste in vremea holerei</title>
+		<author>Gabriel Garcia Marquez</author>
+		<genre>fiction</genre>
+		<quantity>75</quantity>
+		<price>31.05</price>
+	</book>
+	<book id="6">
+		<title>Tools of Titans</title>
+		<author>Tim Ferriss</author>
+		<genre>personal development</genre>
+		<quantity>189</quantity>
+		<price>101.05</price>
+	</book>
+	<book id="7">
+		<title>How to Win Friends and Influence People</title>
+		<author>Dale Carnegie</author>
+		<genre>personal development</genre>
+		<quantity>22</quantity>
+		<price>68</price>
+	</book>
+	<book id="8">
+		<title>Predictably Irrational</title>
+		<author>Dan Ariely</author>
+		<genre>personal development</genre>
+		<quantity>65</quantity>
+		<price>79.95</price>
+	</book>
+	<book id="9">
+		<title>The World Atlas of Coffee</title>
+		<author>James Hoffmann</author>
+		<genre>food and drinks</genre>
+		<quantity>12</quantity>
+		<price>57</price>
+	</book>
+	<book id="9">
+		<title>The Curious Bartender</title>
+		<author>Tristan Stephenson</author>
+		<genre>food and drinks</genre>
+		<quantity>122</quantity>
+		<price>54</price>
+	</book>
+</books>

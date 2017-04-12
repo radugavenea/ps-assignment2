@@ -12,9 +12,9 @@ import java.util.List;
  * Created by radu on 12.04.2017.
  */
 public interface SellRepository {
-    List<Sell> getSells() throws ParserConfigurationException, SAXException, IOException;
-    Sell getSellById(int id) throws ParserConfigurationException, SAXException, IOException;
-    int addSell(Sell sell) throws ParserConfigurationException, SAXException, IOException, TransformerException;
-    int editSell(Sell sell) throws ParserConfigurationException, SAXException, IOException, TransformerException;
-    int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException, TransformerException;
+    List<Sell> getSells();
+    Sell getSellById(int id);
+    int addSell(Sell sell);
+    int editSell(Sell sell);
+    int deleteSellById(int id);
 }

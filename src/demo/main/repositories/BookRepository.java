@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface BookRepository {
 
-    List<Book> getBooks() throws ParserConfigurationException, SAXException, IOException;
-    Book getBookByTitle(String title) throws ParserConfigurationException, SAXException, IOException;
-    int addBook(Book book) throws ParserConfigurationException, SAXException, IOException, TransformerException;
-    int editBook(Book book) throws ParserConfigurationException, SAXException, IOException, TransformerException;
-    int deleteBookById(int id) throws ParserConfigurationException, SAXException, IOException, TransformerException;
+    List<Book> getBooks();
+    Book getBookByTitle(String title);
+    int addBook(Book book);
+    int editBook(Book book);
+    int deleteBookById(int id);
 }

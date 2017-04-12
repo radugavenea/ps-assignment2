@@ -28,23 +28,30 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
 
-    public List<User> getUsers() throws ParserConfigurationException, IOException, SAXException {
+    public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        document = xmlDataAccess.getXMLDocumentElement(xmlFile);
-
-        NodeList userNodeList = document.getElementsByTagName("user");
-        for (int i = 0; i < userNodeList.getLength(); i++) {
-            User user = new User();
-            Node userNode = userNodeList.item(i);
-            if (userNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element userElement = (Element) userNode;
-                user.setId(Integer.parseInt(userElement.getAttribute("id")));
-                user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());
-                user.setUsername(userElement.getElementsByTagName("username").item(0).getTextContent());
-                user.setPassword(userElement.getElementsByTagName("password").item(0).getTextContent());
-                user.setName(userElement.getElementsByTagName("name").item(0).getTextContent());
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList userNodeList = document.getElementsByTagName("user");
+            for (int i = 0; i < userNodeList.getLength(); i++) {
+                User user = new User();
+                Node userNode = userNodeList.item(i);
+                if (userNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element userElement = (Element) userNode;
+                    user.setId(Integer.parseInt(userElement.getAttribute("id")));
+                    user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());
+                    user.setUsername(userElement.getElementsByTagName("username").item(0).getTextContent());
+                    user.setPassword(userElement.getElementsByTagName("password").item(0).getTextContent());
+                    user.setName(userElement.getElementsByTagName("name").item(0).getTextContent());
+                }
+                users.add(user);
             }
-            users.add(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
         }
 
         return !users.isEmpty() ? users : null;
@@ -52,100 +59,137 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     @Override
-    public User getUserByUsername(String username) throws ParserConfigurationException, IOException, SAXException {
+    public User getUserByUsername(String username) {
         User user = null;
-
-        document = xmlDataAccess.getXMLDocumentElement(xmlFile);
-        NodeList userNodeList = document.getElementsByTagName("user");
-        for (int i=0; i<userNodeList.getLength(); i++){
-            Node userNode = userNodeList.item(i);
-            if(userNode.getNodeType() == Node.ELEMENT_NODE){
-                Element userElement = (Element) userNode;
-                if(userElement.getElementsByTagName("username").item(0).getTextContent().equals(username)){
-                    user = new User();
-                    user.setId(Integer.parseInt(userElement.getAttribute("id")));
-                    user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());
-                    user.setUsername(userElement.getElementsByTagName("username").item(0).getTextContent());
-                    user.setPassword(userElement.getElementsByTagName("password").item(0).getTextContent());
-                    user.setName(userElement.getElementsByTagName("name").item(0).getTextContent());
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList userNodeList = document.getElementsByTagName("user");
+            for (int i=0; i<userNodeList.getLength(); i++){
+                Node userNode = userNodeList.item(i);
+                if(userNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element userElement = (Element) userNode;
+                    if(userElement.getElementsByTagName("username").item(0).getTextContent().equals(username)){
+                        user = new User();
+                        user.setId(Integer.parseInt(userElement.getAttribute("id")));
+                        user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());
+                        user.setUsername(userElement.getElementsByTagName("username").item(0).getTextContent());
+                        user.setPassword(userElement.getElementsByTagName("password").item(0).getTextContent());
+                        user.setName(userElement.getElementsByTagName("name").item(0).getTextContent());
+                    }
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
         }
 
         return user;
     }
 
     @Override
-    public int addUser(User user) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+    public int addUser(User user) {
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            Element userRoot = document.getDocumentElement();
+            Element userElement = document.createElement("user");
+            userRoot.appendChild(userElement);
+            Attr userIdAttr = document.createAttribute("id");
+            userIdAttr.setValue(Integer.toString(user.getId()));
+            userElement.setAttributeNode(userIdAttr);
 
-        Element userRoot = document.getDocumentElement();
-        Element userElement = document.createElement("user");
-        userRoot.appendChild(userElement);
-        Attr userIdAttr = document.createAttribute("id");
-        userIdAttr.setValue(Integer.toString(user.getId()));
-        userElement.setAttributeNode(userIdAttr);
+            Element userRole = document.createElement("role");
+            Element userUsername = document.createElement("username");
+            Element userPassword = document.createElement("password");
+            Element userName = document.createElement("name");
 
-        Element userRole = document.createElement("role");
-        Element userUsername = document.createElement("username");
-        Element userPassword = document.createElement("password");
-        Element userName = document.createElement("name");
+            userRole.appendChild(document.createTextNode(user.getRole()));
+            userUsername.appendChild(document.createTextNode(user.getUsername()));
+            userPassword.appendChild(document.createTextNode(user.getPassword()));
+            userName.appendChild(document.createTextNode(user.getName()));
 
-        userRole.appendChild(document.createTextNode(user.getRole()));
-        userUsername.appendChild(document.createTextNode(user.getUsername()));
-        userPassword.appendChild(document.createTextNode(user.getPassword()));
-        userName.appendChild(document.createTextNode(user.getName()));
+            userElement.appendChild(userRole);
+            userElement.appendChild(userUsername);
+            userElement.appendChild(userPassword);
+            userElement.appendChild(userName);
 
-        userElement.appendChild(userRole);
-        userElement.appendChild(userUsername);
-        userElement.appendChild(userPassword);
-        userElement.appendChild(userName);
+            xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
 
-        xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
         return user.getId();
     }
 
     @Override
-    public int editUser(User user) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        document = xmlDataAccess.getXMLDocumentElement(xmlFile);
-
-        NodeList userNodeList = document.getElementsByTagName("user");
-        for (int i=0; i<userNodeList.getLength(); i++){
-            Node userNode = userNodeList.item(i);
-            if(userNode.getNodeType() == Node.ELEMENT_NODE){
-                Element userElement = (Element) userNode;
-                if(userElement.getAttribute("id").equals(Integer.toString(user.getId()))){
-                    userElement.getElementsByTagName("role").item(0).setTextContent(user.getRole());
-                    userElement.getElementsByTagName("username").item(0).setTextContent(user.getUsername());
-                    userElement.getElementsByTagName("password").item(0).setTextContent(user.getPassword());
-                    userElement.getElementsByTagName("name").item(0).setTextContent(user.getName());
+    public int editUser(User user) {
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList userNodeList = document.getElementsByTagName("user");
+            for (int i=0; i<userNodeList.getLength(); i++){
+                Node userNode = userNodeList.item(i);
+                if(userNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element userElement = (Element) userNode;
+                    if(userElement.getAttribute("id").equals(Integer.toString(user.getId()))){
+                        userElement.getElementsByTagName("role").item(0).setTextContent(user.getRole());
+                        userElement.getElementsByTagName("username").item(0).setTextContent(user.getUsername());
+                        userElement.getElementsByTagName("password").item(0).setTextContent(user.getPassword());
+                        userElement.getElementsByTagName("name").item(0).setTextContent(user.getName());
+                    }
                 }
             }
+
+            xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
         }
 
-        xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
         return user.getId();
     }
 
     @Override
-    public int deleteUserById(int id) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        document = xmlDataAccess.getXMLDocumentElement(xmlFile);
-
-        Node users = document.getFirstChild();
-        Node userNode = document.getElementsByTagName("users").item(0);
-        NodeList userChildList = userNode.getChildNodes();
-        for (int i=0; i<userChildList.getLength(); i++){
-            Node node = userChildList.item(i);
-            if(node.getNodeType() == Node.ELEMENT_NODE){
-                Element userElement = (Element) node;
-                if(userElement.getAttribute("id").equals(Integer.toString(id))){
-                    users.removeChild(node);
+    public int deleteUserById(int id) {
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            Node users = document.getFirstChild();
+            Node userNode = document.getElementsByTagName("users").item(0);
+            NodeList userChildList = userNode.getChildNodes();
+            for (int i=0; i<userChildList.getLength(); i++){
+                Node node = userChildList.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE){
+                    Element userElement = (Element) node;
+                    if(userElement.getAttribute("id").equals(Integer.toString(id))){
+                        users.removeChild(node);
+                    }
                 }
             }
+
+            xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
         }
 
-        xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
-        return 0;
+        return id;
     }
 
 }

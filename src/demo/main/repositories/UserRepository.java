@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    List<User> getUsers() throws ParserConfigurationException, IOException, SAXException;
-    User getUserByUsername(String username) throws ParserConfigurationException,IOException,SAXException;
-    int addUser(User user) throws ParserConfigurationException, IOException, SAXException, TransformerException;
-    int editUser(User user) throws ParserConfigurationException, IOException, SAXException, TransformerException;
-    int deleteUserById(int id) throws ParserConfigurationException, IOException, SAXException, TransformerException;
+    List<User> getUsers();
+    User getUserByUsername(String username);
+    int addUser(User user);
+    int editUser(User user);
+    int deleteUserById(int id);
 }

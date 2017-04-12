@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 /**
  * Created by radu on 10.04.2017.
@@ -240,26 +241,27 @@ public class AdminView {
         bookTableModel.fireTableDataChanged();
     }
 
-    public void updateUserTableFields(String[] userArray){
-        bookIdInput.setText(userArray[0]);
-        bookTitleInput.setText(userArray[1]);
-        bookAuthorInput.setText(userArray[2]);
-        bookGenreInput.setText(userArray[3]);
-        bookQuantityInput.setText(userArray[4]);
+    public void updateBookTableFields(ArrayList<String> userArray){
+        bookIdInput.setText(userArray.get(0));
+        bookTitleInput.setText(userArray.get(1));
+        bookAuthorInput.setText(userArray.get(2));
+        bookGenreInput.setText(userArray.get(3));
+        bookQuantityInput.setText(userArray.get(4));
+        bookPriceInput.setText(userArray.get(5));
     }
 
-    public void updateBookTableFields(String[] bookArray){
-        userIdInput.setText(bookArray[0]);
-        userUsernameInput.setText(bookArray[1]);
-        userRoleInput.setText(bookArray[2]);
-        userNameInput.setText(bookArray[3]);
+    public void updateUserTableFields(ArrayList<String> bookArray){
+        userIdInput.setText(bookArray.get(0));
+        userUsernameInput.setText(bookArray.get(1));
+        userRoleInput.setText(bookArray.get(2));
+        userNameInput.setText(bookArray.get(3));
     }
 
     /**
      * Method gets the username of selected client from the userTable
      * @return String if row is selected, null otherwise
      */
-    public String getSelectedEmployeeUsername(){
+    public String getSelectedUsername(){
         int row = userTable.getSelectedRow();
         return row >= 0 ? userTable.getValueAt(row,0).toString() : null;
     }
