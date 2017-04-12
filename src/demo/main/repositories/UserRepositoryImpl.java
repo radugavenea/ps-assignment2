@@ -37,8 +37,8 @@ public class UserRepositoryImpl implements UserRepository {
      */
     public List<User> getUsers() throws ParserConfigurationException, IOException, SAXException {
         List<User> users = new ArrayList<>();
-
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+
         NodeList userNodeList = document.getElementsByTagName("user");
         for (int i = 0; i < userNodeList.getLength(); i++) {
             User user = new User();
@@ -53,7 +53,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
             users.add(user);
         }
-        System.out.println("Root element: " + document.getDocumentElement().getNodeName());
 
         return !users.isEmpty() ? users : null;
     }
@@ -68,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public User getUserByUsername(String username) throws ParserConfigurationException, IOException, SAXException {
-        User user = new User();
+        User user = null;
 
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
         NodeList userNodeList = document.getElementsByTagName("user");
@@ -77,16 +76,17 @@ public class UserRepositoryImpl implements UserRepository {
             if(userNode.getNodeType() == Node.ELEMENT_NODE){
                 Element userElement = (Element) userNode;
                 if(userElement.getElementsByTagName("username").item(1).getTextContent().equals(username)){
+                    user = new User();
                     user.setId(Integer.parseInt(userElement.getAttribute("id")));
                     user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());
                     user.setUsername(userElement.getElementsByTagName("username").item(0).getTextContent());
                     user.setPassword(userElement.getElementsByTagName("password").item(0).getTextContent());
                     user.setName(userElement.getElementsByTagName("name").item(0).getTextContent());
-                    return user;
                 }
             }
         }
-        return null;
+
+        return user;
     }
 
     @Override
@@ -122,6 +122,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public int editUser(User user) throws ParserConfigurationException, IOException, SAXException, TransformerException {
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+
         NodeList userNodeList = document.getElementsByTagName("user");
         for (int i=0; i<userNodeList.getLength(); i++){
             Node userNode = userNodeList.item(i);
@@ -135,6 +136,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         }
+
         xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
         return user.getId();
     }
@@ -155,6 +157,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         }
+
         xmlDataAccess.setUpXMLTransformerWriter(document, xmlFile);
         return 0;
     }

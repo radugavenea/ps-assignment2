@@ -24,7 +24,7 @@ public class AdminController extends AbstractController {
 
     public AdminController(AdminView adminView) {
         this.adminView = adminView;
-        this.userService = new UserServiceImpl();
+        this.userService = new UserServiceImpl(new UserRepositoryImpl());
 
         adminView.addAdminWindowListener(new MyWindowListener());
         adminView.addUserListener(new UserListener());

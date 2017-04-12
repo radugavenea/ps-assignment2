@@ -9,6 +9,8 @@ public class Sell {
     private int bookId;
     private int quantity;
 
+    public Sell(){}
+
     public Sell(int id, int bookId, int quantity) {
         this.id = id;
         this.bookId = bookId;
