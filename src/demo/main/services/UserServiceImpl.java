@@ -1,16 +1,12 @@
 package demo.main.services;
 
+import demo.main.controllers.AdminController;
 import demo.main.entities.User;
 import demo.main.repositories.UserRepository;
-import demo.main.repositories.UserRepositoryImpl;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by radu on 11.04.2017.
@@ -35,17 +31,26 @@ public class UserServiceImpl extends Observable implements UserService {
 
     @Override
     public int addUser(User user) {
-        return userRepository.addUser(user);
+        userRepository.addUser(user);
+        setChanged();
+        notifyObservers();
+        return user.getId();
     }
 
     @Override
     public int editUser(User user) {
-        return userRepository.editUser(user);
+        userRepository.editUser(user);
+        setChanged();
+        notifyObservers();
+        return user.getId();
     }
 
     @Override
     public int deleteUserById(int id) {
-        return userRepository.deleteUserById(id);
+        userRepository.deleteUserById(id);
+        setChanged();
+        notifyObservers();
+        return id;
     }
 
     @Override
@@ -70,5 +75,14 @@ public class UserServiceImpl extends Observable implements UserService {
         userFields.add(user.getName());
         return userFields;
     }
+
+    @Override
+    public String getsUserRole(String username, String password) {
+        User user = userRepository.getUserByUsername(username);
+        if(user == null) return "user does not exist";
+        if(!user.getPassword().equals(password)) return "wrong credentials";
+        return user.getRole();
+    }
+
 
 }

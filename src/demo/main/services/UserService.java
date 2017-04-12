@@ -1,13 +1,10 @@
 package demo.main.services;
 
+import demo.main.controllers.AdminController;
 import demo.main.entities.User;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by radu on 11.04.2017.
@@ -21,4 +18,6 @@ public interface UserService {
     int deleteUserById(int id);
     Object[][] getMappedUsers();
     ArrayList<String> getMappedUserByUsername(String selectedUsername);
+    void addObserver(Observer o);
+    String getsUserRole(String username, String password);
 }

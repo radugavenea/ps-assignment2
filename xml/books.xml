@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<books>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><books>
 	<book id="1">
 		<title>Femei</title>
 		<author>Charles Bukowski</author>
@@ -14,13 +13,7 @@
 		<quantity>234</quantity>
 		<price>29.95</price>
 	</book>
-	<book id="3">
-		<title>How to get filthy rich in rising asia</title>
-		<author>Mohsin Hamid</author>
-		<genre>fiction</genre>
-		<quantity>96</quantity>
-		<price>42.25</price>
-	</book>
+	
 	<book id="4">
 		<title>Intermitentele mortii</title>
 		<author>Jose Saramago</author>
@@ -32,7 +25,7 @@
 		<title>Dragoste in vremea holerei</title>
 		<author>Gabriel Garcia Marquez</author>
 		<genre>fiction</genre>
-		<quantity>75</quantity>
+		<quantity>72</quantity>
 		<price>31.05</price>
 	</book>
 	<book id="6">
@@ -53,8 +46,8 @@
 		<title>Predictably Irrational</title>
 		<author>Dan Ariely</author>
 		<genre>personal development</genre>
-		<quantity>65</quantity>
-		<price>79.95</price>
+		<quantity>23</quantity>
+		<price>543.0</price>
 	</book>
 	<book id="9">
 		<title>The World Atlas of Coffee</title>

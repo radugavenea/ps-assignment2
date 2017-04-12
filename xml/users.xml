@@ -3,13 +3,13 @@
 		<role>admin</role>
 		<username>admin</username>
 		<password>admin</password>
-		<name>nu admin</name>
+		<name>Mitica</name>
 	</user>
 	<user id="2">
 		<role>employee</role>
 		<username>user</username>
 		<password>user</password>
-		<name>Petrica</name>
+		<name>Gigi</name>
 	</user>
 	
 </users>

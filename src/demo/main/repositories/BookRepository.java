@@ -14,6 +14,7 @@ import java.util.List;
 public interface BookRepository {
 
     List<Book> getBooks();
+    List<Book> getBooksBySearchType(String searchType, String searchText);
     Book getBookByTitle(String title);
     int addBook(Book book);
     int editBook(Book book);

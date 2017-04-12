@@ -25,28 +25,41 @@ public class BookServiceImpl extends Observable implements BookService {
     }
 
     @Override
+    public List<Book> getBooksBySearchType(String searchType, String searchText) {
+        return bookRepository.getBooksBySearchType(searchType,searchText);
+    }
+
+    @Override
     public Book getBookByTitle(String title)  {
         return bookRepository.getBookByTitle(title);
     }
 
     @Override
     public int addBook(Book book)  {
-        return bookRepository.addBook(book);
+        bookRepository.addBook(book);
+        setChanged();
+        notifyObservers();
+        return book.getId();
     }
 
     @Override
     public int editBook(Book book)  {
-        return bookRepository.editBook(book);
+        bookRepository.editBook(book);
+        setChanged();
+        notifyObservers();
+        return book.getId();
     }
 
     @Override
     public int deleteBookById(int id)  {
-        return bookRepository.deleteBookById(id);
+        bookRepository.deleteBookById(id);
+        setChanged();
+        notifyObservers();
+        return id;
     }
 
     @Override
-    public Object[][] getMappedBooks() {
-        List<Book> books = bookRepository.getBooks();
+    public Object[][] getMappedBooks(List<Book> books) {
         Object[][] bookObjects = new Object[books.size()][5];
         for(int i=0; i<books.size(); i++){
             bookObjects[i][0] = books.get(i).getTitle();

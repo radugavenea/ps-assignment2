@@ -3,6 +3,7 @@ package demo.main.views;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
 /**
@@ -17,14 +18,12 @@ public class EmployeeView {
     private JComponent bookPanel = makeTextPanel();
 
     /**
-     * private swing components for account GUI tab
+     * private swing components for employee GUI
      */
-    private JRadioButton searchByTitleLabel = new JRadioButton("Search by title   ");
-    private JRadioButton searchByAuthorLabel = new JRadioButton("Search by author   ");
-    private JRadioButton searchByGenreLabel = new JRadioButton("Search by genre   ");
-
+    private JRadioButton searchByTitleButton = new JRadioButton("Search by title   ");
+    private JRadioButton searchByAuthorButton = new JRadioButton("Search by author   ");
+    private JRadioButton searchByGenreButton = new JRadioButton("Search by genre   ");
     private JTextField searchInput = new JTextField(30);
-
     private JButton searchButton = new JButton("Search");
 
     private JTable bookTable = new JTable();
@@ -40,6 +39,13 @@ public class EmployeeView {
         }
     };
 
+    private JLabel infoMessage = new JLabel("Please select a book from the list above and the quantity in the field below");
+    private JLabel blank = new JLabel("                                ");
+    private JLabel blank2 = new JLabel("                                          ");
+    private JLabel blank3 = new JLabel("                                                                                                                                                                                     ");
+    private JLabel bookQuantityLabel = new JLabel("Quantity: ");
+    private JTextField bookQuantityInput = new JTextField(30);
+    private JButton sellButton = new JButton("Sell");
 
     /**
      * The actual constructor of the Employee GUI
@@ -53,11 +59,43 @@ public class EmployeeView {
         frame.setResizable(false);
 
         setUpBookPanel();
+        setUpBookSellPanel();
 
         frame.add(bookSplitPanel);
         frame.setVisible(true);
     }
 
+
+    public String getSearchInput() {
+        return searchInput.getText();
+    }
+    public void setSearchInput(String searchText) {
+        searchInput.setText(searchText);
+    }
+
+    public void makeSearchByTitleSelected(){
+        searchByTitleButton.setSelected(true);
+        searchByAuthorButton.setSelected(false);
+        searchByGenreButton.setSelected(false);
+    }
+
+    public void makeSearchByAuthorSelected(){
+        searchByTitleButton.setSelected(false);
+        searchByAuthorButton.setSelected(true);
+        searchByGenreButton.setSelected(false);
+    }
+
+    public void makeSearchByGenreSelected(){
+        searchByTitleButton.setSelected(false);
+        searchByAuthorButton.setSelected(false);
+        searchByGenreButton.setSelected(true);
+    }
+
+    public void updateBookTableData(Object[][] booksData){
+        this.booksData = booksData;
+        bookTableModel.setDataVector(booksData,booksColumnNames);
+        bookTableModel.fireTableDataChanged();
+    }
 
     /**
      * Listen to employee window specific events
@@ -67,17 +105,44 @@ public class EmployeeView {
         frame.addWindowListener(windowListener);
     }
 
+    public void addRadioButtonsListener(ActionListener listener){
+        searchByTitleButton.addActionListener(listener);
+        searchByTitleButton.setActionCommand("title");
+        searchByAuthorButton.addActionListener(listener);
+        searchByAuthorButton.setActionCommand("author");
+        searchByGenreButton.addActionListener(listener);
+        searchByGenreButton.setActionCommand("genre");
+    }
 
+    public void addSearchButtonListener(ActionListener listener){
+        searchButton.addActionListener(listener);
+        searchButton.setActionCommand("search");
+    }
+
+    //////////////////// private methods ///////////////////////
 
     private void setUpBookPanel() {
         bookTable.setModel(bookTableModel);
         bookSplitPanel.setDividerLocation(250);
         insideBookSplitPanel.setDividerLocation(80);
-        bookPanel.add(searchByTitleLabel);
-        bookPanel.add(searchByAuthorLabel);
-        bookPanel.add(searchByGenreLabel);
+        searchByTitleButton.setSelected(true);
+        bookPanel.add(searchByTitleButton);
+        bookPanel.add(searchByAuthorButton);
+        bookPanel.add(searchByGenreButton);
         bookPanel.add(searchInput);
         bookPanel.add(searchButton);
+    }
+
+    private void setUpBookSellPanel(){
+        bookButtonPanel.add(blank);
+        bookButtonPanel.add(infoMessage);
+        bookButtonPanel.add(blank2);
+        bookButtonPanel.add(blank3);
+        bookQuantityInput.setText("1");
+        bookButtonPanel.add(bookQuantityLabel);
+        bookQuantityInput.setPreferredSize(new Dimension(2,30));
+        bookButtonPanel.add(bookQuantityInput);
+        bookButtonPanel.add(sellButton);
     }
 
 

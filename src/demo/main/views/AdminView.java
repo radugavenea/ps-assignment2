@@ -177,7 +177,8 @@ public class AdminView {
     public void setBookQuantityInput(String accountDate) {
         bookQuantityInput.setText(accountDate);
     }
-
+    public String getBookPriceInput(){return bookPriceInput.getText();}
+    public void setBookPriceInput(String price){bookPriceInput.setText(price);}
 
     /**
      * Listeners
@@ -185,33 +186,12 @@ public class AdminView {
     public void addAdminWindowListener(WindowListener adminWindowListener){
         frame.addWindowListener(adminWindowListener);
     }
-/*
-    public void addUserListener(ActionListener listener){
-        userReadButton.addActionListener(listener);
-        userReadButton.setActionCommand("Read users");
-        userAddButton.addActionListener(listener);
-        userAddButton.setActionCommand("Add user");
-        userEditButton.addActionListener(listener);
-        userEditButton.setActionCommand("Edit user");
-        userDeleteButton.addActionListener(listener);
-        userDeleteButton.setActionCommand("Delete user");
-    }
 
-    public void addBookListener(ActionListener listener){
-        bookReadButton.addActionListener(listener);
-        bookReadButton.setActionCommand("Read books");
-        bookAddButton.addActionListener(listener);
-        bookAddButton.setActionCommand("Add book");
-        bookEditButton.addActionListener(listener);
-        bookEditButton.setActionCommand("Edit book");
-        bookDeleteButton.addActionListener(listener);
-        bookDeleteButton.setActionCommand("Delete book");
-    }*/
 
-    public void addUserListener(ActionListener listener){
+    public void addUserButtonsListener(ActionListener listener){
         addXListener(listener, userReadButton, userAddButton, userEditButton, userDeleteButton);
     }
-    public void addBookListener(ActionListener listener){
+    public void addBookButtonsListener(ActionListener listener){
         addXListener(listener, bookReadButton, bookAddButton, bookEditButton, bookDeleteButton);
     }
 
@@ -337,13 +317,13 @@ public class AdminView {
      */
     private void addXListener(ActionListener listener, JButton xReadButton, JButton xAddButton, JButton xEditButton, JButton xDeleteButton){
         xReadButton.addActionListener(listener);
-        xReadButton.setActionCommand("Read");
+        xReadButton.setActionCommand("read");
         xAddButton.addActionListener(listener);
-        xAddButton.setActionCommand("Add");
+        xAddButton.setActionCommand("add");
         xEditButton.addActionListener(listener);
-        xEditButton.setActionCommand("Edit");
+        xEditButton.setActionCommand("edit");
         xDeleteButton.addActionListener(listener);
-        xDeleteButton.setActionCommand("Delete");
+        xDeleteButton.setActionCommand("delete");
     }
 
 

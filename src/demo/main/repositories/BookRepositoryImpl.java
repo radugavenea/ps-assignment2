@@ -58,10 +58,44 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
+    public List<Book> getBooksBySearchType(String searchType, String searchText) {
+        List<Book> books = new ArrayList<>();
+        try {
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList bookNodeList = document.getElementsByTagName("book");
+            for(int i=0; i<bookNodeList.getLength(); i++){
+                Node bookNode = bookNodeList.item(i);
+                if(bookNode.getNodeType() == Node.ELEMENT_NODE){
+                    Book book = new Book();
+                    Element bookElement = (Element) bookNode;
+                    if(bookElement.getElementsByTagName(searchType).item(0).getTextContent().equals(searchText)){
+                        book.setId(Integer.parseInt(bookElement.getAttribute("id")));
+                        book.setTitle(bookElement.getElementsByTagName("title").item(0).getTextContent());
+                        book.setAuthor(bookElement.getElementsByTagName("author").item(0).getTextContent());
+                        book.setGenre(bookElement.getElementsByTagName("genre").item(0).getTextContent());
+                        book.setQuantity(Integer.parseInt(bookElement.getElementsByTagName("quantity").item(0).getTextContent()));
+                        book.setPrice(Float.parseFloat(bookElement.getElementsByTagName("price").item(0).getTextContent()));
+                        books.add(book);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+        return !books.isEmpty() ? books : null;
+    }
+
+    @Override
     public Book getBookByTitle(String title) {
         Book book = null;
         try {
-            document = xmlDataAccess.getXMLDocumentElement(xmlFile);NodeList bookNodeList = document.getElementsByTagName("book");
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList bookNodeList = document.getElementsByTagName("book");
             for(int i=0; i<bookNodeList.getLength(); i++){
                 Node bookNode = bookNodeList.item(i);
                 if(bookNode.getNodeType() == Node.ELEMENT_NODE){
@@ -133,7 +167,8 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public int editBook(Book book) {
         try {
-            document = xmlDataAccess.getXMLDocumentElement(xmlFile);  NodeList bookNodeList = document.getElementsByTagName("book");
+            document = xmlDataAccess.getXMLDocumentElement(xmlFile);
+            NodeList bookNodeList = document.getElementsByTagName("book");
             for(int i=0; i<bookNodeList.getLength(); i++) {
                 Node bookNode = bookNodeList.item(i);
                 if(bookNode.getNodeType() == Node.ELEMENT_NODE){
