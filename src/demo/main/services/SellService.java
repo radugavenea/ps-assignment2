@@ -16,6 +16,6 @@ public interface SellService {
     Sell getSellById(int id) throws ParserConfigurationException, SAXException, IOException;
     int addSell(Sell sell) throws ParserConfigurationException, SAXException, IOException, TransformerException;
     int editSell(Sell sell) throws ParserConfigurationException, SAXException, IOException, TransformerException;
-    int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException;
+    int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException, TransformerException;
 
 }

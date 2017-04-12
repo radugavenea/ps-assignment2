@@ -2,6 +2,7 @@ package demo.main.repositories;
 
 import demo.main.entities.Book;
 import demo.main.xmlDataAccess.XMLDataAccess;
+import demo.main.xmlDataAccess.XMLFilePAth;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -18,10 +19,11 @@ public class BookRepositoryImpl implements BookRepository {
 
     private XMLDataAccess xmlDataAccess;
     private Document document;
-    private String xmlFile = "books.xml";
+    private String xmlFile;
 
-    public BookRepositoryImpl() {
+    public BookRepositoryImpl(String xmlFile) {
         this.xmlDataAccess = new XMLDataAccess();
+        this.xmlFile = xmlFile;
     }
 
     @Override
@@ -58,9 +60,9 @@ public class BookRepositoryImpl implements BookRepository {
             Node bookNode = bookNodeList.item(i);
             if(bookNode.getNodeType() == Node.ELEMENT_NODE){
                 Element bookElement = (Element) bookNode;
-                if(bookElement.getAttribute("title").equals(title)){
+                if(bookElement.getElementsByTagName("title").item(0).getTextContent().equals(title)){
                     book = new Book();
-                    book.setId(Integer.parseInt(bookElement.getElementsByTagName("id").item(0).getTextContent()));
+                    book.setId(Integer.parseInt(bookElement.getAttribute("id")));
                     book.setTitle(bookElement.getElementsByTagName("title").item(0).getTextContent());
                     book.setAuthor(bookElement.getElementsByTagName("author").item(0).getTextContent());
                     book.setGenre(bookElement.getElementsByTagName("genre").item(0).getTextContent());
@@ -74,7 +76,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public int addBook(Book book) throws ParserConfigurationException, SAXException, IOException {
+    public int addBook(Book book) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
 
         Element bookRoot = document.getDocumentElement();
@@ -101,6 +103,7 @@ public class BookRepositoryImpl implements BookRepository {
         bookElement.appendChild(bookQuantity);
         bookElement.appendChild(bookPrice);
 
+        xmlDataAccess.setUpXMLTransformerWriter(document,xmlFile);
         return book.getId();    // validate before return id
     }
 

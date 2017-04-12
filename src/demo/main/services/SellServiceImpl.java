@@ -41,7 +41,7 @@ public class SellServiceImpl implements SellService {
     }
 
     @Override
-    public int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException {
+    public int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         return sellRepository.deleteSellById(id);
     }
 }

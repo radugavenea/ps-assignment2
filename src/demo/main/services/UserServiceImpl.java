@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) throws IOException, SAXException, ParserConfigurationException {
+        return userRepository.getUserByUsername(username);
+    }
+
+    @Override
     public int addUser(User user) throws ParserConfigurationException, TransformerException, SAXException, IOException {
         return userRepository.addUser(user);
     }

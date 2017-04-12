@@ -2,6 +2,7 @@ package demo.main.repositories;
 
 import demo.main.entities.Sell;
 import demo.main.xmlDataAccess.XMLDataAccess;
+import demo.main.xmlDataAccess.XMLFilePAth;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -20,8 +21,9 @@ public class SellRepositoryImpl implements SellRepository {
     private Document document;
     private String xmlFile;
 
-    public SellRepositoryImpl() {
+    public SellRepositoryImpl(String xmlFile) {
         this.xmlDataAccess = new XMLDataAccess();
+        this.xmlFile = xmlFile;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class SellRepositoryImpl implements SellRepository {
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
 
         NodeList sellNodeList = document.getElementsByTagName("sell");
-        for(int i=1; i<sellNodeList.getLength(); i++){
+        for(int i=0; i<sellNodeList.getLength(); i++){
             Sell sell = new Sell();
             Node sellNode = sellNodeList.item(i);
             if(sellNode.getNodeType() == Node.ELEMENT_NODE){
@@ -111,11 +113,11 @@ public class SellRepositoryImpl implements SellRepository {
     }
 
     @Override
-    public int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException {
+    public int deleteSellById(int id) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
 
         Node sells = document.getFirstChild();
-        Node sellNode = document.getElementsByTagName("books").item(0);
+        Node sellNode = document.getElementsByTagName("sells").item(0);
         NodeList sellChildList = sellNode.getChildNodes();
         for(int i=0; i<sellChildList.getLength(); i++){
             Node node = sellChildList.item(i);
@@ -127,6 +129,7 @@ public class SellRepositoryImpl implements SellRepository {
             }
         }
 
+        xmlDataAccess.setUpXMLTransformerWriter(document,xmlFile);
         return id;
     }
 }

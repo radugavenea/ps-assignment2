@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int addBook(Book book) throws ParserConfigurationException, SAXException, IOException {
+    public int addBook(Book book) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         return bookRepository.addBook(book);
     }
 

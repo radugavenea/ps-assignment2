@@ -2,6 +2,7 @@ package demo.main.repositories;
 
 import demo.main.entities.User;
 import demo.main.xmlDataAccess.XMLDataAccess;
+import demo.main.xmlDataAccess.XMLFilePAth;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -16,25 +17,17 @@ import java.util.List;
  */
 public class UserRepositoryImpl implements UserRepository {
 
-    private String xmlFile = "users.xml";
-    private Document document;
     private XMLDataAccess xmlDataAccess;
+    private Document document;
+    private String xmlFile;
 
-    /**
-     * Constructor
-     */
-    public UserRepositoryImpl() {
+
+    public UserRepositoryImpl(String xmlFile) {
         this.xmlDataAccess = new XMLDataAccess();
+        this.xmlFile = xmlFile;
     }
 
 
-    /**
-     * Retrieve all users
-     * @return  List of User
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
     public List<User> getUsers() throws ParserConfigurationException, IOException, SAXException {
         List<User> users = new ArrayList<>();
         document = xmlDataAccess.getXMLDocumentElement(xmlFile);
@@ -57,14 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
         return !users.isEmpty() ? users : null;
     }
 
-    /**
-     * Retrieve a user by its username
-     * @param username
-     * @return User
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
+
     @Override
     public User getUserByUsername(String username) throws ParserConfigurationException, IOException, SAXException {
         User user = null;
@@ -75,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
             Node userNode = userNodeList.item(i);
             if(userNode.getNodeType() == Node.ELEMENT_NODE){
                 Element userElement = (Element) userNode;
-                if(userElement.getElementsByTagName("username").item(1).getTextContent().equals(username)){
+                if(userElement.getElementsByTagName("username").item(0).getTextContent().equals(username)){
                     user = new User();
                     user.setId(Integer.parseInt(userElement.getAttribute("id")));
                     user.setRole(userElement.getElementsByTagName("role").item(0).getTextContent());

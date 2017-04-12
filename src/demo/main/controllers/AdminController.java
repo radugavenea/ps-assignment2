@@ -5,6 +5,7 @@ import demo.main.repositories.UserRepositoryImpl;
 import demo.main.services.UserService;
 import demo.main.services.UserServiceImpl;
 import demo.main.views.AdminView;
+import demo.main.xmlDataAccess.XMLFilePAth;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,7 +25,7 @@ public class AdminController extends AbstractController {
 
     public AdminController(AdminView adminView) {
         this.adminView = adminView;
-        this.userService = new UserServiceImpl(new UserRepositoryImpl());
+        this.userService = new UserServiceImpl(new UserRepositoryImpl(XMLFilePAth.userFilePath));
 
         adminView.addAdminWindowListener(new MyWindowListener());
         adminView.addUserListener(new UserListener());

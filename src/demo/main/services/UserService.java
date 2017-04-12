@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserService {
 
     List<User> getAllUsers() throws IOException, SAXException, ParserConfigurationException;
+    User getUserByUsername(String username) throws IOException, SAXException, ParserConfigurationException;
     int addUser(User user) throws ParserConfigurationException, TransformerException, SAXException, IOException;
     int editUser(User user) throws ParserConfigurationException, TransformerException, SAXException, IOException;
     int deleteUserById(int id) throws SAXException, IOException, ParserConfigurationException, TransformerException;
