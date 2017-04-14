@@ -23,7 +23,7 @@ import java.io.IOException;
 /**
  * Created by radu on 12.04.2017.
  */
-public class UserTests {
+public class UserCRUDTests {
 
     private XMLDataAccess xmlDataAccess = new XMLDataAccess();
     private Document document;

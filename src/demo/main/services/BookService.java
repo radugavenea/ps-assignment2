@@ -23,5 +23,6 @@ public interface BookService {
     int deleteBookById(int id);
     Object[][] getMappedBooks(List<Book> books);
     ArrayList<String> getMappedBookByTitle(String selectedBookName);
+    void adjustStock(Book book, int quantity);
     void addObserver(Observer o);
 }

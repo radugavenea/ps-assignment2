@@ -18,5 +18,7 @@ public interface SellService {
     int addSell(Sell sell);
     int editSell(Sell sell);
     int deleteSellById(int id);
+    void makeSell(int bookId, int quantity);
     void addObserver(Observer o);
+
 }

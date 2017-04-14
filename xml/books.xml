@@ -32,7 +32,7 @@
 		<title>Tools of Titans</title>
 		<author>Tim Ferriss</author>
 		<genre>personal development</genre>
-		<quantity>189</quantity>
+		<quantity>179</quantity>
 		<price>101.05</price>
 	</book>
 	<book id="7">
@@ -56,7 +56,7 @@
 		<quantity>12</quantity>
 		<price>57</price>
 	</book>
-	<book id="9">
+	<book id="10">
 		<title>The Curious Bartender</title>
 		<author>Tristan Stephenson</author>
 		<genre>food and drinks</genre>

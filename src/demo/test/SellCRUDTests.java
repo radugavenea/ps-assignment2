@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by radu on 12.04.2017.
  */
-public class SellTests {
+public class SellCRUDTests {
 
     private XMLDataAccess xmlDataAccess = new XMLDataAccess();
     private Document document;

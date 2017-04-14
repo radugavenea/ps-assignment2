@@ -65,13 +65,20 @@ public class EmployeeView {
         frame.setVisible(true);
     }
 
-
+    /**
+     * setters and getters
+     * @return
+     */
     public String getSearchInput() {
         return searchInput.getText();
     }
     public void setSearchInput(String searchText) {
         searchInput.setText(searchText);
     }
+    public String getBookQuantityInput(){return bookQuantityInput.getText();}
+    public void setBookQuantityInput(String quantityInput){bookQuantityInput.setText(quantityInput);}
+
+
 
     public void makeSearchByTitleSelected(){
         searchByTitleButton.setSelected(true);
@@ -97,6 +104,13 @@ public class EmployeeView {
         bookTableModel.fireTableDataChanged();
     }
 
+
+    public String getSelectedBookTitle(){
+        int row = bookTable.getSelectedRow();
+        return row > -1 ? bookTable.getValueAt(row,0).toString() : null;
+    }
+
+
     /**
      * Listen to employee window specific events
      * @param windowListener
@@ -114,9 +128,11 @@ public class EmployeeView {
         searchByGenreButton.setActionCommand("genre");
     }
 
-    public void addSearchButtonListener(ActionListener listener){
+    public void addEmployeeButtonListener(ActionListener listener){
         searchButton.addActionListener(listener);
         searchButton.setActionCommand("search");
+        sellButton.addActionListener(listener);
+        sellButton.setActionCommand("sell");
     }
 
     //////////////////// private methods ///////////////////////

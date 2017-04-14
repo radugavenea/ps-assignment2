@@ -45,4 +45,10 @@ public class SellServiceImpl extends Observable implements SellService {
     public int deleteSellById(int id) {
         return sellRepository.deleteSellById(id);
     }
+
+    @Override
+    public void makeSell(int bookId, int quantity) {
+        Sell sell = new Sell(100,bookId,quantity);
+        sellRepository.addSell(sell);
+    }
 }

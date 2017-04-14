@@ -19,7 +19,7 @@ import java.io.*;
 /**
  * Created by radu on 12.04.2017.
  */
-public class BookTests {
+public class BookCRUDTests {
 
     private XMLDataAccess xmlDataAccess = new XMLDataAccess();
     private Document document;
@@ -27,7 +27,7 @@ public class BookTests {
 
     @Before
     public void init() throws ParserConfigurationException, SAXException, IOException, TransformerException {
-        document = xmlDataAccess.getXMLDocumentElement(XMLFilePAth.bookFilePath);
+        document = xmlDataAccess.getXMLDocumentElement(XMLFilePAth.bookTestFilePath);
         bookService.addBook(new Book(1,"Femei","Charles Bukowski","fictiune",12,new Float(23.5)));
     }
 

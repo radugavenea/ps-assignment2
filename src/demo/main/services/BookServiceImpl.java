@@ -83,4 +83,12 @@ public class BookServiceImpl extends Observable implements BookService {
         bookFields.add(Float.toString(book.getPrice()));
         return bookFields;
     }
+
+    @Override
+    public void adjustStock(Book book, int quantity) {
+        book.setQuantity(book.getQuantity() - quantity);
+        bookRepository.editBook(book);
+        setChanged();
+        notifyObservers();
+    }
 }
