@@ -14,8 +14,8 @@ public class Launcher {
 
 
     public static void main(String[] args) {
-        new AdminController(new AdminView());
+//        new AdminController(new AdminView());
 //        new EmployeeController(new EmployeeView());
-//        new LoginController(new LoginView());
+        new LoginController(new LoginView());
     }
 }
