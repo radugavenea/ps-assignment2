@@ -3,6 +3,8 @@ package demo.main.services;
 import demo.main.controllers.AdminController;
 import demo.main.entities.User;
 import demo.main.repositories.UserRepository;
+
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -82,6 +84,16 @@ public class UserServiceImpl extends Observable implements UserService {
         if(user == null) return "user does not exist";
         if(!user.getPassword().equals(password)) return "wrong credentials";
         return user.getRole();
+    }
+
+    /**
+     * get new available id for xml user records
+     * @return 0 if there are no users and last record id + 1 otherwise
+     */
+    @Override
+    public int getIncrementedUserId() {
+        List<User> users = userRepository.getUsers();
+        return users == null ? 0 : users.get(users.size() - 1).getId() + 1;
     }
 
 

@@ -32,7 +32,6 @@ public class LoginController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //check user for credentials
             if(userService.getsUserRole(loginView.getUsername(),loginView.getPassword()).equals("admin")){                                  // trebuie schimbat cu admin
                     new AdminController(new AdminView());
             }

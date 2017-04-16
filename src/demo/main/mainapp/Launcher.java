@@ -1,7 +1,9 @@
 package demo.main.mainapp;
 
+import demo.main.controllers.AdminController;
 import demo.main.controllers.EmployeeController;
 import demo.main.controllers.LoginController;
+import demo.main.views.AdminView;
 import demo.main.views.EmployeeView;
 import demo.main.views.LoginView;
 
@@ -12,8 +14,8 @@ public class Launcher {
 
 
     public static void main(String[] args) {
-//        new AdminController(new AdminView());
-        new EmployeeController(new EmployeeView());
+        new AdminController(new AdminView());
+//        new EmployeeController(new EmployeeView());
 //        new LoginController(new LoginView());
     }
 }

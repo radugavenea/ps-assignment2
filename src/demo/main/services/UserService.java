@@ -18,6 +18,7 @@ public interface UserService {
     int deleteUserById(int id);
     Object[][] getMappedUsers();
     ArrayList<String> getMappedUserByUsername(String selectedUsername);
-    void addObserver(Observer o);
     String getsUserRole(String username, String password);
+    int getIncrementedUserId();
+    void addObserver(Observer o);
 }

@@ -22,7 +22,7 @@ public class AdminView {
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JComponent userPanel = makeTextPanel();
     private JComponent bookPanel = makeTextPanel();
-    private JComponent reportPanel = makeTextPanel();
+    private JComponent reportPanel = new JPanel();
 
     /**
      * private swing components for user GUI tab
@@ -94,7 +94,8 @@ public class AdminView {
     /**
      * private swing components for report GUI tab
      */
-
+    private JButton pdfGeneratorButton = new JButton("Generate PDF");
+    private JButton csvGeneratorButton = new JButton("Generate CSV");
 
 
     /**
@@ -187,15 +188,12 @@ public class AdminView {
         frame.addWindowListener(adminWindowListener);
     }
 
-
     public void addUserButtonsListener(ActionListener listener){
         addXListener(listener, userReadButton, userAddButton, userEditButton, userDeleteButton);
     }
     public void addBookButtonsListener(ActionListener listener){
         addXListener(listener, bookReadButton, bookAddButton, bookEditButton, bookDeleteButton);
     }
-
-
 
     public void addUserTableListener(ListSelectionListener listSelectionListener){
         userTable.getSelectionModel().addListSelectionListener(listSelectionListener);
@@ -205,6 +203,12 @@ public class AdminView {
         bookTable.getSelectionModel().addListSelectionListener(listSelectionListener);
     }
 
+    public void addFileGeneratorListener(ActionListener listener){
+        pdfGeneratorButton.addActionListener(listener);
+        pdfGeneratorButton.setActionCommand("pdf");
+        csvGeneratorButton.addActionListener(listener);
+        csvGeneratorButton.setActionCommand("csv");
+    }
 
     /**
      * Public methods to update view based on model changes
@@ -308,7 +312,8 @@ public class AdminView {
     }
 
     private void setUpReportPanel(){
-
+        reportPanel.add(pdfGeneratorButton);
+        reportPanel.add(csvGeneratorButton);
     }
 
 

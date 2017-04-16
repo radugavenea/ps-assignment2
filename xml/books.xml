@@ -32,15 +32,15 @@
 		<title>Tools of Titans</title>
 		<author>Tim Ferriss</author>
 		<genre>personal development</genre>
-		<quantity>179</quantity>
+		<quantity>165</quantity>
 		<price>101.05</price>
 	</book>
 	<book id="7">
 		<title>How to Win Friends and Influence People</title>
 		<author>Dale Carnegie</author>
 		<genre>personal development</genre>
-		<quantity>22</quantity>
-		<price>68</price>
+		<quantity>21</quantity>
+		<price>68.0</price>
 	</book>
 	<book id="8">
 		<title>Predictably Irrational</title>

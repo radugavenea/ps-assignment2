@@ -1,13 +1,12 @@
 package demo.main.controllers;
 
+import com.itextpdf.text.DocumentException;
 import demo.main.entities.Book;
 import demo.main.entities.User;
 import demo.main.repositories.BookRepositoryImpl;
+import demo.main.repositories.SellRepositoryImpl;
 import demo.main.repositories.UserRepositoryImpl;
-import demo.main.services.BookService;
-import demo.main.services.BookServiceImpl;
-import demo.main.services.UserService;
-import demo.main.services.UserServiceImpl;
+import demo.main.services.*;
 import demo.main.views.AdminView;
 import demo.main.xmlDataAccess.XMLFilePAth;
 
@@ -15,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,13 +24,15 @@ import java.util.Observer;
 public class AdminController extends AbstractController implements Observer {
 
     private AdminView adminView;
-    private UserService userService;// = new UserServiceImpl(new UserRepositoryImpl(XMLFilePAth.userFilePath));
+    private UserService userService;
     private BookService bookService;
+    private SellService sellService;
 
     public AdminController(AdminView adminView) {
         this.adminView = adminView;
         this.userService = new UserServiceImpl(new UserRepositoryImpl(XMLFilePAth.userFilePath));
         this.bookService = new BookServiceImpl(new BookRepositoryImpl(XMLFilePAth.bookFilePath));
+        this.sellService = new SellServiceImpl(new SellRepositoryImpl(XMLFilePAth.sellFilePath));
 
         userService.addObserver(this);
         bookService.addObserver(this);
@@ -40,6 +42,7 @@ public class AdminController extends AbstractController implements Observer {
         adminView.addBookButtonsListener(new BookListener());
         adminView.addBookTableListener(new BookListSelectionListener());
         adminView.addUserTableListener(new UserListSelectionListener());
+        adminView.addFileGeneratorListener(new FileGeneratorListener());
     }
 
     @Override
@@ -59,10 +62,9 @@ public class AdminController extends AbstractController implements Observer {
                     adminView.updateUserTableData(userService.getMappedUsers());
                     break;
                 case "add":
-                    //id increment should be implemented
-//                    userService.addUser(new User(100,adminView.getUserRoleInput(),
-//                            adminView.getUserUsernameInput(),"root",
-//                            adminView.getUserNameInput()));
+                    userService.addUser(new User(userService.getIncrementedUserId(),adminView.getUserRoleInput(),
+                            adminView.getUserUsernameInput(),"root",
+                            adminView.getUserNameInput()));
                     break;
                 case "edit":
                     userService.editUser(new User(Integer.parseInt(adminView.getUserIdInput()),adminView.getUserRoleInput(),
@@ -88,10 +90,9 @@ public class AdminController extends AbstractController implements Observer {
                     adminView.updateBookTableData(bookService.getMappedBooks(bookService.getAllBooks()));
                     break;
                 case "add":
-                    // id increment should be implemented
-//                    bookService.addBook(new Book(100,adminView.getBookTitleInput(),adminView.getBookAuthorInput(),
-//                            adminView.getBookGenreInput(),Integer.parseInt(adminView.getBookQuantityInput()),
-//                            Float.parseFloat(adminView.getBookPriceInput())));
+                    bookService.addBook(new Book(bookService.getIncrementedBookId(),adminView.getBookTitleInput(),adminView.getBookAuthorInput(),
+                            adminView.getBookGenreInput(),Integer.parseInt(adminView.getBookQuantityInput()),
+                            Float.parseFloat(adminView.getBookPriceInput())));
                     break;
                 case "edit":
                     bookService.editBook(new Book(Integer.parseInt(adminView.getBookIdInput()),
@@ -123,6 +124,37 @@ public class AdminController extends AbstractController implements Observer {
         public void valueChanged(ListSelectionEvent e) {
             if(adminView.getSelectedBookName() != null){
                 adminView.updateBookTableFields(bookService.getMappedBookByTitle(adminView.getSelectedBookName()));
+            }
+        }
+    }
+
+    class FileGeneratorListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (e.getActionCommand()){
+                case "pdf":
+                    ReportGenerator pdfGenerator = new PdfGenerator();
+                    try {
+                        pdfGenerator.generateReport(sellService.getTopTenBestsellers());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (DocumentException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "csv":
+                    ReportGenerator csvGenerator = new CsvGenerator();
+                    try {
+                        csvGenerator.generateReport(sellService.getTopTenBestsellers());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (DocumentException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

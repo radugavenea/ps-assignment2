@@ -71,10 +71,17 @@ public class EmployeeController extends AbstractController implements Observer {
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()){
                 case "search":
-                    employeeView.updateBookTableData(bookService.getMappedBooks(bookService.getBooksBySearchType(searchType,employeeView.getSearchInput())));
+                    // if nothing is specified in the search field, show all books, no matter what search type is
+                    if(employeeView.getSearchInput().equals("")) {
+                        employeeView.updateBookTableData(bookService.getMappedBooks(bookService.getAllBooks()));
+                    }
+                    // display book based on the search type
+                    else{
+                        employeeView.updateBookTableData(bookService.getMappedBooks(bookService.getBooksBySearchType(searchType,employeeView.getSearchInput())));
+                    }
                     break;
                 case "sell":
-                    sellService.makeSell(bookService.getBookByTitle(employeeView.getSelectedBookTitle()).getId(),
+                    sellService.makeSell(sellService.getIncrementedSellId(),bookService.getBookByTitle(employeeView.getSelectedBookTitle()).getId(),
                             Integer.parseInt(employeeView.getBookQuantityInput()));
                     bookService.adjustStock(bookService.getBookByTitle(employeeView.getSelectedBookTitle()),
                             Integer.parseInt(employeeView.getBookQuantityInput()));

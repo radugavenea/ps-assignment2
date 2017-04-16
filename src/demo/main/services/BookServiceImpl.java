@@ -91,4 +91,15 @@ public class BookServiceImpl extends Observable implements BookService {
         setChanged();
         notifyObservers();
     }
+
+    /**
+     * get new available id for xml book records
+     * @return 0 if there are no books and last record id + 1 otherwise
+     */
+    @Override
+    public int getIncrementedBookId() {
+        List<Book> books = bookRepository.getBooks();
+        return books == null ? 0 : books.get(books.size() - 1).getId() + 1;
+    }
+
 }
